@@ -1,16 +1,12 @@
-# This is a sample Python script.
+from ftc_teams import parse_first_team_data, Team, TeamException, TeamCollection, parse_event_preference_data
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+def load_team_data(team_data_filename, team_preferences_filename):
+    teams_data = parse_first_team_data(team_data_filename)
+    print(f'{len(teams_data)} teams parsed and loaded.')
+    teams = TeamCollection()
+    teams.add_teams(teams_data)
+    parse_event_preference_data(team_preferences_filename, teams)
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    load_team_data('data/FTC_team_data.csv', 'data/first_pick_event_preferences.csv')
