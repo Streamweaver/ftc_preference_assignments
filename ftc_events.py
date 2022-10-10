@@ -1,6 +1,10 @@
 import csv
 
 
+class EventException(Exception):
+    pass
+
+
 class FTCEvent:
 
     def __init__(self, name, postal_code, event_date, event_location, capacity):
@@ -11,7 +15,16 @@ class FTCEvent:
         self.name = name
         self.teams = []
 
-    def capacity_left(self):
+    def assign_team(self, team) -> None:
+        if not team.secured:
+            raise EventException(f"Cannot assign unsecured team {team.number} to an event!")
+        if self.is_team_assigned(team.number):
+            raise EventException(f"Team {team.number} is already assigned and cannot be assigned again!")
+        if len(self.teams) >= self.capacity:
+            raise EventException(f"Event full, cannot add team {team.number}")
+        self.teams.append(team)
+
+    def capacity_left(self) -> int:
         """
         Returns an int of the number of unassigned slots at the event.
 
@@ -19,7 +32,7 @@ class FTCEvent:
         """
         return self.capacity - len(self.teams)
 
-    def team_assigned(self, team_number):
+    def is_team_assigned(self, team_number) -> bool:
         """
         Checks if a team number is assigned to the event.
 

@@ -70,3 +70,7 @@ class TestTeamCollection(unittest.TestCase):
         # It should add a team preference for a secured team that exists
         self.tc.add_event_preferences(2, "first", "second", "third")
         self.assertEqual(3, len(teams[1].event_preferences))
+
+
+if __name__ == '__main__':
+    unittest.main()
