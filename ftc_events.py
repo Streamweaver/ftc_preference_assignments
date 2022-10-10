@@ -1,7 +1,7 @@
 import csv
 
 
-class FTC_Event:
+class FTCEvent:
 
     def __init__(self, name, postal_code, event_date, event_location, capacity):
         self.capacity = capacity
@@ -9,24 +9,24 @@ class FTC_Event:
         self.event_date = event_date
         self.postal_code = postal_code
         self.name = name
-        self.assigned_team_numbers = []
+        self.teams = []
 
     def capacity_left(self):
-        '''
+        """
         Returns an int of the number of unassigned slots at the event.
 
         :return: Int of remaining event capacity
-        '''
-        return self.capacity - len(self.assigned_team_numbers)
+        """
+        return self.capacity - len(self.teams)
 
     def team_assigned(self, team_number):
-        '''
+        """
         Checks if a team number is assigned to the event.
 
         :param team_number: string of team number
         :return: boolean if the team number is assigned
-        '''
-        return team_number in self.assigned_team_numbers
+        """
+        return team_number in [t.number for t in self.teams]
 
 
 def parse_events(filename):
@@ -35,7 +35,7 @@ def parse_events(filename):
         # Name,Date,Location,Street,City,State,Event Postal Code
         reader = csv.DictReader(csvfile)
         for row in reader:
-            event = FTC_Event(
+            event = FTCEvent(
                 row['Name'],
                 row["Postal Code"],
                 row['Date'],
