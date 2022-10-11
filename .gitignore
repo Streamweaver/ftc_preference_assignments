@@ -1,6 +1,7 @@
 # Local Ignore - No exposies the datas
 data/*.csv
 data/*.xlsx
+output/*.csv
 .idea/*
 
 # Byte-compiled / optimized / DLL files
